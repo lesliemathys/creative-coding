@@ -2,10 +2,10 @@ let bubbles = [];
 
 let bg = [32, 5, 97];
 
-let palette = [
-  [203, 78, 90],
-  [7, 78, 90],
-  [45, 78, 90],
+let palettes = [
+  [[203, 78, 90], [7, 78, 90], [45, 78, 90]], //palette 1
+  [[153, 78, 90], [347, 78, 90], [230, 78, 90]], //palette 2
+  [[], [], []]
 ];
 
 function setup() {
@@ -16,9 +16,13 @@ function setup() {
   noLoop();
   background(bg);
 
+  paletteSelect = floor(random(palettes.length));
+
   for (let i = 0; i < random(3, 11); i++) {
     bubbles[i] = new Bubble();
   }
+
+
 }
 
 function draw() {
@@ -39,8 +43,8 @@ class Bubble {
 
   show() {
     blendMode(MULTIPLY);
-    fill(palette[floor(random(3))]);
     noStroke();
+    fill(palettes[paletteSelect][floor(random(palettes.length+1))]);
     circle(this.x, this.y, this.d);
   }
 }
