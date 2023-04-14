@@ -5,11 +5,12 @@ let bg = [32, 5, 97];
 let palettes = [
   [[203, 78, 90], [7, 78, 90], [45, 78, 90]], //palette 1
   [[153, 78, 90], [347, 78, 90], [230, 78, 90]], //palette 2
-  [[], [], []]
+  [[190, 78, 90], [10, 38, 90], [338, 39, 90]] //palette 3
 ];
 
 function setup() {
-  WIDTH = min(windowWidth, windowHeight);
+  //WIDTH = min(windowWidth, windowHeight);
+  WIDTH = 1000;
   print(WIDTH);
   createCanvas(WIDTH, WIDTH);
   colorMode(HSB);
@@ -21,8 +22,6 @@ function setup() {
   for (let i = 0; i < random(3, 11); i++) {
     bubbles[i] = new Bubble();
   }
-
-
 }
 
 function draw() {
@@ -44,7 +43,8 @@ class Bubble {
   show() {
     blendMode(MULTIPLY);
     noStroke();
-    fill(palettes[paletteSelect][floor(random(palettes.length+1))]);
+    let paletteColour = floor(random(palettes.length));
+    fill(palettes[paletteSelect][paletteColour]);    
     circle(this.x, this.y, this.d);
   }
 }
