@@ -1,31 +1,46 @@
+let bubbles = [];
+
 let bg = [32, 5, 97];
 
-let palette = [[203, 78, 90], [7, 78, 90], [45, 78, 90]];
+let palette = [
+  [203, 78, 90],
+  [7, 78, 90],
+  [45, 78, 90],
+];
 
 function setup() {
-  createCanvas(1000, 1000);
+  WIDTH = min(windowWidth, windowHeight);
+  print(WIDTH);
+  createCanvas(WIDTH, WIDTH);
   colorMode(HSB);
   noLoop();
   background(bg);
-  blendMode(MULTIPLY);
-}
 
-function draw() {
-  noStroke();
-  translate(width/4,height/4);
-  for (let i = 0; i < 10; i++) {
-    fill(palette[colourSelector()])
-    circle(random(width-(width/2)), random(height-(height/2)),random(100,300));
+  for (let i = 0; i < random(3, 11); i++) {
+    bubbles[i] = new Bubble();
   }
 }
 
-function colourSelector() {
-  selector = floor(random(3));
-  return selector
+function draw() {
+  push();
+  translate(width / 4, height / 4);
+  for (let i = 0; i < bubbles.length; i++) {
+    bubbles[i].show();
+  }
+  pop();
 }
 
-function keyPressed(){
-  if (key === 's'){
-      save('circles.png');
+class Bubble {
+  constructor() {
+    this.x = random(width - width / 2);
+    this.y = random(height - height / 2);
+    this.d = random(WIDTH/10, WIDTH/3);
+  }
+
+  show() {
+    blendMode(MULTIPLY);
+    fill(palette[floor(random(3))]);
+    noStroke();
+    circle(this.x, this.y, this.d);
   }
 }
